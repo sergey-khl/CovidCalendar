@@ -27,10 +27,11 @@
 ![Covid cell](CovidVirus.png)
 
 
-#### Difficulties
+#### Difficulties and Bugs
 
 ##### Working with the API
 
 * Requesting the Data from the API had a few difficulties
 	* The format of the requested data was inconsistent depending on the country, which made calculations difficult.
-	* Some countries only provided information for each city. For example, Canada only provided information for each province but the entire country had "zero" cases.
+	* Some countries only provided information for each city. For example, Canada only provided information for each province but the entire country had "zero" cases, resulting in unknown data that is inconsistent or false.
+
