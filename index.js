@@ -93,7 +93,8 @@ submitButton.addEventListener('click', function (e) {
         .then(function (result) {
             //create cell in calendar
             // Creates a cell for each element for that month and stops at the last day
-            for (var i = 0; i <= Number(months[yearMonth[1]][1]); i++) {
+            for (var i = 0; i <= Number(months[yearMonth[1]][1]) - 1; i++) {
+                console.log(Number(months[yearMonth[1]][1]))
                 var element = result[i];
                 var cell = document.createElement("button")
                 var day = document.createElement("h3")
