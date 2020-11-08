@@ -5,18 +5,32 @@ let calendarTitle = document.getElementById('calendar-title')
 let youHaveChosen = document.getElementById('you-have-chosen')
 let calendarGrid = document.querySelector('.date-grid')
 const months = {
-  '01':['January','31'],
-  '02':['February','29'],
-  '03':['March','31'],
-  '04':['April','30'],
-  '05':['May','31'],
-  '06':['June','30'],
-  '07':['July','31'],
-  '08':['August','31'],
-  '09':['September','30'],
-  '10':['October','31'],
-  '11':['November','30'],
-  '12':['December','31']
+    '01': ['January', '31'],
+    '02': ['February', '29'],
+    '03': ['March', '31'],
+    '04': ['April', '30'],
+    '05': ['May', '31'],
+    '06': ['June', '30'],
+    '07': ['July', '31'],
+    '08': ['August', '31'],
+    '09': ['September', '30'],
+    '10': ['October', '31'],
+    '11': ['November', '30'],
+    '12': ['December', '31']
+}
+const monthStart = {
+    "January": 4,
+    "February": 7,
+    "March": 1,
+    "April": 4,
+    "May": 6,
+    "June": 2,
+    "July": 4,
+    "August": 7,
+    "September": 3,
+    "October": 5,
+    "November": 1,
+    "December": 3
 }
 
 var requestOptions = {
@@ -63,7 +77,7 @@ submitButton.addEventListener('click', function (e) {
     calendarTitle.innerHTML = months[yearMonth[1]][0] + " " + yearMonth[0]
     chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=2020-" + yearMonth[1] + "-" + months[yearMonth[1]][1] + "T00:00:00Z"
     alert(chosenDate)
-    youHaveChosen.innerHTML = "Confirmed cases in " + countryName.innerHTML + " in "+months[yearMonth[1]][0];
+    youHaveChosen.innerHTML = "Confirmed cases in " + countryName.innerHTML + " in " + months[yearMonth[1]][0];
 
     // reset calendar grid
 
@@ -73,7 +87,7 @@ submitButton.addEventListener('click', function (e) {
         .then(function (result) {
             //create cell in calendar
             // Creates a cell for each element for that month and stops at the last day
-            for (var i=0; i<=Number(months[yearMonth[1]][1]); i++) {
+            for (var i = 0; i <= Number(months[yearMonth[1]][1]); i++) {
                 var element = result[i];
                 var cell = document.createElement("button")
                 var day = document.createElement("h3")
@@ -99,10 +113,19 @@ submitButton.addEventListener('click', function (e) {
 
                 // add cell to calendar
                 calendarGrid.appendChild(cell)
-
             }
 
-            
+            console.log(months[yearMonth[1]][0]);
+
+            var style = document.createElement("style");
+            if (months[yearMonth[1]][0] == "January") {
+                style.innerHTML = `
+                .date-grid button:first-child {
+                    grid-column: `+ monthStart[months[yearMonth[1]][0]] + `;
+                } `;
+                document.head.appendChild(style);
+            }
+
         })
         .catch(error => console.log('error', error));
 })
