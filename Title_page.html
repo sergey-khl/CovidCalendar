@@ -1,113 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<style>
-body{
+  <style>
+    body {
 
-background: url("Background.png");
-}
-
-
-
-html{
-
-  height: 100%;
-  width:  100%;
-
-}
-
-h1 {text-align: center;}
-h2 {text-align: center;}
-p {text-align: center;}
-div {text-align: center;}
+      
+    }
 
 
-h1 {
-  font-size: 90px;
-  color: #ffffff
-}
 
-h2{
+    html {
 
-  font-size: 90px;
-  color: #ffffff
+      height: 100%;
+      width: 100%;
+      background: linear-gradient(to right bottom, #003973, #e5e5be);
+    }
 
-}
+    h1 {
+      text-align: center;
+    }
 
-p {
-  font-size: 42px;
-  color: #ffffff;
-}
+    h2 {
+      text-align: center;
+    }
 
-div {
-  font-size: 24px;
-  color: #ffffff;
-}
+    p {
+      text-align: center;
+    }
+
+    div {
+      text-align: center;
+    }
 
 
-.Covid1{
- position: relative; 
- right:200px;
- bottom:700px;
-}
+    h1 {
+      font-size: 90px;
+      color: #ffffff
+    }
 
-.Covid2{
- position: relative; 
- left:500px;
- bottom:700px;
-}
+    h2 {
 
-.Button {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+      font-size: 90px;
+      color: #ffffff
+    }
 
-  position: relative;
-  bottom:750px;
-}
+    p {
+      font-size: 42px;
+      color: #ffffff;
+    }
 
-</style>
+    div {
+      font-size: 24px;
+      color: #ffffff;
+    }
+
+
+    .Covid1 {
+      position: relative;
+      right: 200px;
+      bottom: 700px;
+    }
+
+    .Covid2 {
+      position: relative;
+      left: 500px;
+      bottom: 700px;
+    }
+
+    .Button {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 50%;
+
+      position: relative;
+      bottom: 750px;
+    }
+    .container{
+      position:fixed
+    }
+  </style>
 </head>
 
 <body>
 
+  <div class="container">
+    <h1>COVID Calender</h1>
 
-  <h1>COVID Calender</h1>
+    <p>Tracking Covid Numbers by Location and Month</p>
 
-  <p>Tracking Covid Numbers by Location and Month</p>
-
-  <div>Program Created By Kody D., Richmond T., Sergey K., and Hannah T.</div>
-<h2> Click Button To Begin </h2>
-  <img src="CovidVirus.png"/ class="Covid1">
-  <img src="CovidVirus.png"/class="Covid2">
+    <div>Program Created By Kody D, Richmond T, Sergey K, and Hannah T</div>
+    <h2> Click Button To Begin </h2>
+    <img src="CovidVirus.png" class="Covid1">
+    <img src="CovidVirus.png" class="Covid2">
+    <img id="example" onclick="changeImage()" src="Button.png" class="Button">
+  </div>
 
 
 </body>
 
-
-
-
-
-<img id="example" onclick="changeImage()" src="Button.png" class="Button">
-
 <script>
-function changeImage()
-{
-element=document.getElementById("example")
 
-if (element.src == "Buttonpush.png")
-  {
-  element.src="Button.png";
-  }
-else
-  {
-  element.src="Buttonpush.png";
-  setTimeout(goCalendar,1500);
-  }
-}
-  
-  function(goCalendar(){
-  location.href = "main.html";
+  function changeImage() {
+    element = document.getElementById("example")
+
+    if (element.src == "Buttonpush.png") {
+      element.src = "Button.png";
+    }
+    else {
+      element.src = "Buttonpush.png";
+      setTimeout(function(){ location.href = "main.html"; }, 500);
+    }
   }
 </script>
