@@ -6,7 +6,7 @@ let youHaveChosen = document.getElementById('you-have-chosen')
 let calendarGrid = document.querySelector('.date-grid')
 const months = {
     '01': ['January', '31'],
-    '02': ['February', '29'],
+    '02': ['February', '28'],
     '03': ['March', '31'],
     '04': ['April', '30'],
     '05': ['May', '31'],
@@ -73,7 +73,7 @@ submitButton.addEventListener('click', function (e) {
         }
         return opt;
     }
-    var countryName = getSelectedOption(countryList);
+        var countryName = getSelectedOption(countryList);
     const month = dateSelect.value;
 
     // Change the calendar title
@@ -81,12 +81,16 @@ submitButton.addEventListener('click', function (e) {
     var chosenDate
     // Get data for the month chosen 
     calendarTitle.innerHTML = months[yearMonth[1]][0] + " " + yearMonth[0]
-    chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=2020-" + yearMonth[1] + "-" + months[yearMonth[1]][1] + "T00:00:00Z"
-    alert(chosenDate)
+    var prevMonth = String("0" + (yearMonth[1] - 1)).slice(-2);
+    if (Number(prevMonth) == 0){
+        chosenDate = "confirmed?from=" + yearMonth + "-01T00:00:00Z&to=2020-" + yearMonth[1] + "-" + months[yearMonth[1]][1] + "T00:00:00Z"
+    }else {
+        chosenDate = "confirmed?from=" + yearMonth[0] + "-" + prevMonth + "-" + months[prevMonth][1] + "T00:00:00Z&to=2020-" + yearMonth[1] + "-" + months[yearMonth[1]][1] + "T00:00:00Z"
+    }
     youHaveChosen.innerHTML = "Confirmed cases in " + countryName.innerHTML + " in " + months[yearMonth[1]][0];
 
+    var prevCases = 0
     // reset calendar grid
-
     calendarGrid.innerHTML = ""
     fetch("https://api.covid19api.com/country/" + countryName.value + "/status/" + chosenDate, requestOptions)
         .then(response => response.json())
@@ -103,8 +107,11 @@ submitButton.addEventListener('click', function (e) {
                     weekdays.innerHTML = ""
                     break
                 }
-                console.log(Number(months[yearMonth[1]][1]))
                 var element = result[i];
+                if(i == 0 && prevMonth != 0){
+                    prevCases = element["Cases"]
+                    continue
+                }
                 var cell = document.createElement("button")
                 var day = document.createElement("h3")
                 day.textContent = currday
@@ -117,10 +124,17 @@ submitButton.addEventListener('click', function (e) {
                 totalCases.textContent = "Total Cases: " + element["Cases"]
                 totalCases.setAttribute('class', 'total-cases')
                 var newCases = document.createElement("h3")
-                newCases.textContent = "New Cases: " + element["Cases"]
+                newCases.textContent = "New Cases: " + (Number(element["Cases"]) - Number(prevCases))
                 newCases.setAttribute('class', 'new-cases')
                 var change = document.createElement("h3")
-                change.textContent = "% Change: " + element["Cases"]
+                var percent = (((Number(element["Cases"] - prevCases))/prevCases)*100).toFixed(3)
+                if (percent == Infinity){
+                    percent = 100
+                }
+                else if (prevCases == element["Cases"]){
+                    percent = 0
+                }
+                change.textContent = "Change: %" + percent;
                 change.setAttribute('class', '%-change')
                 div.appendChild(totalCases)
                 div.appendChild(newCases)
@@ -129,6 +143,7 @@ submitButton.addEventListener('click', function (e) {
 
                 // add cell to calendar
                 calendarGrid.appendChild(cell)
+                prevCases = element["Cases"]
             }
 
             console.log(monthStart[months[yearMonth[1]][0]]);
