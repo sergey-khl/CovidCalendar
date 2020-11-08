@@ -1,16 +1,20 @@
 const countryList = document.querySelector("#country")
+const dateSelect = document.getElementById('chosendate')
+const submitButton = document.querySelector(".submit-button")
+var slug
+var date
 
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
-  };
-  
-  fetch("https://api.covid19api.com/", requestOptions)
+};
+
+fetch("https://api.covid19api.com/", requestOptions)
     .then(response => response.json())
     .then(result => console.log(result["countriesRoute"]))
     .catch(error => console.log('error', error));
-  
-    fetch("https://api.covid19api.com/countries", requestOptions)
+
+fetch("https://api.covid19api.com/countries", requestOptions)
     .then(response => response.json())
     .then(result => result.forEach(element => {
         var country = document.createElement("option")
@@ -20,21 +24,27 @@ var requestOptions = {
     }))
     .catch(error => console.log('error', error));
 
-var el = document.getElementById('chosendate')
-// Get the date that the user picked
 
-el.addEventListener('change', () => {
-  const month = el.value
-  chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + month + "-30T00:00:00Z"
-  alert(chosenDate)
-   // Testing the fetch with south africa
-  fetch("https://api.covid19api.com/country/south-africa?"+chosenDate, requestOptions)
-  .then(response => response.json())
-  .then(result => result.forEach(element => {
-      console.log(element)
-  }))
-  .catch(error => console.log('error', error));
-  // Changes the calendar title to the chosen date
-  var yearMonth = month.split('-')
-  document.getElementById('chosen-date').innerHTML = months[yearMonth[1]]+" "+yearMonth[0]
+submitButton.addEventListener('click', function (e) {
+    e.preventDefault()
+    function getSelectedOption(sel) {
+        var opt;
+        for (var i = 0, len = sel.options.length; i < len; i++) {
+            opt = sel.options[i];
+            if (opt.selected === true) {
+                break;
+            }
+        }
+        return opt;
+    }
+    var countryName = getSelectedOption(countryList);
+    const month = dateSelect.value;
+    var chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + month + "-30T00:00:00Z"
+
+    fetch("https://api.covid19api.com/country/" + countryName.value + "/status/" + chosenDate, requestOptions)
+        .then(response => response.json())
+        .then(result => result.forEach(element => {
+            console.log(element["Cases"])
+        }))
+        .catch(error => console.log('error', error));
 })
