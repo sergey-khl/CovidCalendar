@@ -27,6 +27,7 @@ el.addEventListener('change', () => {
   const month = el.value
   chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + month + "-30T00:00:00Z"
   alert(chosenDate)
+   // Testing the fetch with south africa
   fetch("https://api.covid19api.com/country/south-africa?"+chosenDate, requestOptions)
   .then(response => response.json())
   .then(result => result.forEach(element => {
