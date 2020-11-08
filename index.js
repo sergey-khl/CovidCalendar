@@ -31,6 +31,11 @@ fetch("https://api.covid19api.com/", requestOptions)
 
 fetch("https://api.covid19api.com/countries", requestOptions)
     .then(response => response.json())
+    .then(result => result.sort(function(a,b){ // Sorting function for alphabetical countries
+        var countryA = a["Country"]
+        var countryB = b["Country"]
+        return (countryA < countryB) ? -1 : (countryA > countryB) ? 1 : 0;
+    }))
     .then(result => result.forEach(element => {
         var country = document.createElement("option")
         country.innerHTML = element["Country"]
