@@ -108,7 +108,7 @@ submitButton.addEventListener('click', function (e) {
                     break
                 }
                 var element = result[i];
-                if(i == 0 && prevMonth != 0){
+                if(i == 0){
                     prevCases = element["Cases"]
                     continue
                 }
