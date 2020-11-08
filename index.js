@@ -20,10 +20,20 @@ var requestOptions = {
     }))
     .catch(error => console.log('error', error));
 
-
 var el = document.getElementById('chosendate')
+// Get the date that the user picked
+
 el.addEventListener('change', () => {
   const month = el.value
-  var chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + month + "-30T00:00:00Z"
+  chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + month + "-30T00:00:00Z"
   alert(chosenDate)
+  fetch("https://api.covid19api.com/country/south-africa?"+chosenDate, requestOptions)
+  .then(response => response.json())
+  .then(result => result.forEach(element => {
+      console.log(element)
+  }))
+  .catch(error => console.log('error', error));
+  // Changes the calendar title to the chosen date
+  var yearMonth = month.split('-')
+  document.getElementById('chosen-date').innerHTML = months[yearMonth[1]]+" "+yearMonth[0]
 })
