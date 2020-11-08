@@ -2,6 +2,8 @@ const countryList = document.querySelector("#country")
 const dateSelect = document.getElementById('chosendate')
 const submitButton = document.querySelector(".submit-button")
 let calendarTitle = document.getElementById('calendar-title')
+let youHaveChosen = document.getElementById('you-have-chosen')
+let calendarGrid = document.querySelector('date-grid')
 const months = {
   '01':'January',
   '02':'February',
@@ -52,10 +54,22 @@ submitButton.addEventListener('click', function (e) {
     }
     var countryName = getSelectedOption(countryList);
     const month = dateSelect.value;
-    var chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + month + "-30T00:00:00Z"
+
     // Change the calendar title
-    yearMonth = month.split("-")
+    var yearMonth = month.split("-")
+    var chosenDate
+    // Get data for the month chosen AND one day after that month
+    // Except for december, that will be only that month
     calendarTitle.innerHTML = months[yearMonth[1]] + " " + yearMonth[0]
+    if (Number(yearMonth[1]) < 12) {
+      var nextMonth = ("00"+ (Number(yearMonth[1])+1)).slice(-2)
+      chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + nextMonth + "-01T00:00:00Z"
+      alert(chosenDate)
+    } else {
+      chosenDate = "confirmed?from=" + month + "-01T00:00:00Z&to=" + month + "-31T00:00:00Z"
+      alert(chosenDate)
+    }
+    youHaveChosen.innerHTML = "Confirmed cases in "+countryName.innerHTML+" in "+months[yearMonth[1]];
 
     fetch("https://api.covid19api.com/country/" + countryName.value + "/status/" + chosenDate, requestOptions)
         .then(response => response.json())
