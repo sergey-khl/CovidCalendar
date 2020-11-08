@@ -4,7 +4,6 @@ const submitButton = document.querySelector(".submit-button")
 let calendarTitle = document.getElementById('calendar-title')
 let youHaveChosen = document.getElementById('you-have-chosen')
 let calendarGrid = document.querySelector('.date-grid')
-<<<<<<< HEAD
 const months = {
     '01': ['January', '31'],
     '02': ['February', '29'],
@@ -32,22 +31,6 @@ const monthStart = {
     "October": 5,
     "November": 1,
     "December": 3
-=======
-
-const months = { // Object for the months of 2020 in digits, words and amount of days
-  '01':['January','31'],
-  '02':['February','29'],
-  '03':['March','31'],
-  '04':['April','30'],
-  '05':['May','31'],
-  '06':['June','30'],
-  '07':['July','31'],
-  '08':['August','31'],
-  '09':['September','30'],
-  '10':['October','31'],
-  '11':['November','30'],
-  '12':['December','31']
->>>>>>> e4aafcb63368cdf5ac8fc1cb26a8df888baef80b
 }
 
 // Fetching initial data from COVID 19 API https://documenter.getpostman.com/view/10808728/SzS8rjbc
@@ -138,16 +121,15 @@ submitButton.addEventListener('click', function (e) {
                 calendarGrid.appendChild(cell)
             }
 
-            console.log(months[yearMonth[1]][0]);
+            console.log(monthStart[months[yearMonth[1]][0]]);
 
             var style = document.createElement("style");
-            if (months[yearMonth[1]][0] == "January") {
-                style.innerHTML = `
+            style.innerHTML = `
                 .date-grid button:first-child {
-                    grid-column: `+ monthStart[months[yearMonth[1]][0]] + `;
-                } `;
-                document.head.appendChild(style);
-            }
+                    grid-column: ${monthStart[months[yearMonth[1]][0]]};
+                }`;
+            document.head.appendChild(style);
+
 
         })
         .catch(error => console.log('error', error));
