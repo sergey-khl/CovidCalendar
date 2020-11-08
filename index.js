@@ -4,6 +4,7 @@ const submitButton = document.querySelector(".submit-button")
 let calendarTitle = document.getElementById('calendar-title')
 let youHaveChosen = document.getElementById('you-have-chosen')
 let calendarGrid = document.querySelector('.date-grid')
+<<<<<<< HEAD
 const months = {
     '01': ['January', '31'],
     '02': ['February', '29'],
@@ -31,8 +32,25 @@ const monthStart = {
     "October": 5,
     "November": 1,
     "December": 3
+=======
+
+const months = { // Object for the months of 2020 in digits, words and amount of days
+  '01':['January','31'],
+  '02':['February','29'],
+  '03':['March','31'],
+  '04':['April','30'],
+  '05':['May','31'],
+  '06':['June','30'],
+  '07':['July','31'],
+  '08':['August','31'],
+  '09':['September','30'],
+  '10':['October','31'],
+  '11':['November','30'],
+  '12':['December','31']
+>>>>>>> e4aafcb63368cdf5ac8fc1cb26a8df888baef80b
 }
 
+// Fetching initial data from COVID 19 API https://documenter.getpostman.com/view/10808728/SzS8rjbc
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
@@ -45,6 +63,11 @@ fetch("https://api.covid19api.com/", requestOptions)
 
 fetch("https://api.covid19api.com/countries", requestOptions)
     .then(response => response.json())
+    .then(result => result.sort(function (a, b) { // Sorting function for alphabetical countries
+        var countryA = a["Country"]
+        var countryB = b["Country"]
+        return (countryA < countryB) ? -1 : (countryA > countryB) ? 1 : 0;
+    }))
     .then(result => result.forEach(element => {
         var country = document.createElement("option")
         country.innerHTML = element["Country"]
