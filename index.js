@@ -4,7 +4,8 @@ const submitButton = document.querySelector(".submit-button")
 let calendarTitle = document.getElementById('calendar-title')
 let youHaveChosen = document.getElementById('you-have-chosen')
 let calendarGrid = document.querySelector('.date-grid')
-const months = {
+
+const months = { // Object for the months of 2020 in digits, words and amount of days
   '01':['January','31'],
   '02':['February','29'],
   '03':['March','31'],
@@ -19,6 +20,7 @@ const months = {
   '12':['December','31']
 }
 
+// Fetching initial data from COVID 19 API https://documenter.getpostman.com/view/10808728/SzS8rjbc
 var requestOptions = {
     method: 'GET',
     redirect: 'follow'
