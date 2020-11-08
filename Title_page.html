@@ -103,7 +103,11 @@ if (element.src == "Buttonpush.png")
 else
   {
   element.src="Buttonpush.png";
-  location.href = "main.html";
+  setTimeout(goCalendar,1500);
   }
 }
+  
+  function(goCalendar(){
+  location.href = "main.html";
+  }
 </script>
