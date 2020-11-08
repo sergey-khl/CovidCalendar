@@ -94,6 +94,15 @@ submitButton.addEventListener('click', function (e) {
             //create cell in calendar
             // Creates a cell for each element for that month and stops at the last day
             for (var i = 0; i <= Number(months[yearMonth[1]][1]) - 1; i++) {
+                // If the month chosen is November or December, we cannot display the data properly
+                if (yearMonth[1] == "11" || yearMonth[1] =="12") {
+                    var message = document.createElement("h4")
+                    var weekdays = document.getElementById("day-of-week")
+                    message.innerHTML = "Sorry, data from this month is not available."
+                    calendarTitle.appendChild(message)
+                    weekdays.innerHTML = ""
+                    break
+                }
                 console.log(Number(months[yearMonth[1]][1]))
                 var element = result[i];
                 var cell = document.createElement("button")
