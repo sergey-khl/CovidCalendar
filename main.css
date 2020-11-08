@@ -3,7 +3,9 @@
     border:0;
 }
 html{
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
     height:100%;
+    color: #190000;
 }
 .container{
     position:fixed;
@@ -11,14 +13,19 @@ html{
     left:50%;
     transform: translate(-50%, -50%);
     font-family: Arial, Helvetica, sans-serif;
+    color: #190000;
 }
 #chosendate{
-    border: 2px solid green;
+    border: 2px solid#190000;
     border-radius: 5px
 }
 .dropdown{
     position: relative;
     display: inline-block;
+    border: 2px solid#190000;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: #ffe5e5;
 }
 .all-countries{
     display: none;
@@ -28,19 +35,17 @@ html{
 .dropdown:hover .all-countries{
     display:block;
 }
-html {
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+.submit-button{
+    background-color:#ffffff;
 }
-
-
 body {
-    background-color: #F5F5F5;
+    background: url("Background.png");
 }
 
 .calender {
     max-width: max-content;
-    background-color: #fff;
-    border: 2px solid #080808;
+    background-color: #ffe5e5;
+    border: 2px solid #190000;
     border-radius: 8px;
 }
 
@@ -72,7 +77,7 @@ body {
     margin: 5px;
     height: 100px;
     font-size: large;
-    border: solid 7px #DCDCDC;
+    border: solid 2px #4c0000;
     background-color: transparent;
 }
 
